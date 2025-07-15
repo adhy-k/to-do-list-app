@@ -2,6 +2,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 const Viewall = () => {
+
+    const [isLoad, changeLoad] = useState(true)
+
     const [todo, changeTodo] = useState(
         {
             "todos": [],
@@ -13,16 +16,25 @@ const Viewall = () => {
     const fetchData = () => {
         axios.get("https://dummyjson.com/todos").then(
             (req) => {
+                changeLoad(false)
                 changeTodo({ todos: req.data.todos })
             }
-        ).catch()
+        ).catch(
+            () => {
+                alert("Somthing went wrong")
+            }
+        )
     }
     useEffect(() => { fetchData() }, [])
     return (
         <div><div className="container-fluid">
             <div className="row">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div className="row g-3">
+                    {
+                        isLoad ? (<div class="d-flex align-items-center">
+                            <strong role="status">Loading...</strong>
+                            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+                        </div>) : (<div className="row g-3">
                         {
                             todo.todos.map(
                                 (value, index) => {
@@ -41,7 +53,9 @@ const Viewall = () => {
                                 }
                             )
                         }
-                    </div>
+                    </div>)
+                    }
+                    
                 </div>
             </div>
         </div></div>
