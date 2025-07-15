@@ -33,7 +33,7 @@ const Viewall = () => {
                                                     {value.id}. {value.todo}
                                                 </div>
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Completed: {value.completed ? 'YES' : 'NO'}</li>
+                                                    <li class="list-group-item">{value.completed ? <p className='text-success'>Completed: Yes</p> : <p className='text-danger'>Completed: NO</p>}</li>
                                                 </ul>
                                             </div>
                                         </div>
